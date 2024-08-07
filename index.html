@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Host Testing</title>
+    <style>
+        /* Existing CSS code */
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            transition: opacity 1s ease-out; /* Transition for fade-out effect */
+        }
+
+        .glitch {
+            font-size: 2em;
+            font-weight: bold;
+            position: relative;
+            animation: glitch 1s linear infinite, rgb-animation 3s infinite;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            animation: glitch-anim 1s linear infinite reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 blue;
+            animation: glitch-anim2 1s linear infinite reverse;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(44px, 9999px, 56px, 0); transform: skew(0.3deg); }
+            20% { clip: rect(17px, 9999px, 11px, 0); transform: skew(0.5deg); }
+            40% { clip: rect(10px, 9999px, 84px, 0); transform: skew(0.1deg); }
+            60% { clip: rect(25px, 9999px, 65px, 0); transform: skew(0.7deg); }
+            80% { clip: rect(84px, 9999px, 90px, 0); transform: skew(0.6deg); }
+            100% { clip: rect(11px, 9999px, 44px, 0); transform: skew(0.2deg); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(20px, 9999px, 45px, 0); transform: skew(0.4deg); }
+            20% { clip: rect(74px, 9999px, 34px, 0); transform: skew(0.6deg); }
+            40% { clip: rect(24px, 9999px, 55px, 0); transform: skew(0.3deg); }
+            60% { clip: rect(12px, 9999px, 44px, 0); transform: skew(0.7deg); }
+            80% { clip: rect(64px, 9999px, 75px, 0); transform: skew(0.2deg); }
+            100% { clip: rect(30px, 9999px, 25px, 0); transform: skew(0.5deg); }
+        }
+
+        @keyframes rgb-animation {
+            0% { color: red; }
+            33% { color: green; }
+            66% { color: blue; }
+            100% { color: red; }
+        }
+
+        .background-text {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: side-to-side 10s linear infinite;
+            position: absolute;
+            top: 4em;
+        }
+
+        @keyframes side-to-side {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        .typewriter-button {
+            margin-top: 2em;
+            padding: 1em 2em;
+            font-size: 1.5em;
+            color: #fff;
+            background: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: monospace;
+            outline: none;
+        }
+
+        .typewriter-button span {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 4s steps(5) 1s 1 normal both, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        .typewriter-button.clicked span {
+            animation: futuristic 1s forwards;
+        }
+
+        @keyframes futuristic {
+            0% { transform: scale(1); background: #333; }
+            50% { transform: scale(1.2); background: #00f; }
+            100% { transform: scale(1); background: #333; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glitch rgb" data-text="Welcome to Zane's Local Host Testing">Welcome to Zane's Local Host Testing</div>
+
+    <div class="background-text">
+        المسيح هو الملك
+        <br>المسيح هو الملك
+        <br>المسيح هو الملك
+        <br>المسيح هو الملك
+        <br>المسيح هو الملك
+    </div>
+
+    <button class="typewriter-button" id="typewriterButton">
+        <span>ENTER</span>
+    </button>
+
+    <script>
+        const numFlakes = 100;
+        const body = document.body;
+
+        for (let i = 0; i < numFlakes; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.style.width = snowflake.style.height = `${Math.random() * 5 + 2}px`;
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            snowflake.style.animationDelay = `${Math.random() * 10}s`;
+            body.appendChild(snowflake);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const snowflakes = document.querySelectorAll('.snowflake');
+            snowflakes.forEach(snowflake => {
+                const rect = snowflake.getBoundingClientRect();
+                const dx = e.clientX - (rect.left + rect.width / 2);
+                const dy = e.clientY - (rect.top + rect.height / 2);
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = 100;
+                if (dist < maxDist) {
+                    const offsetX = (dx / dist) * (maxDist - dist) / 10;
+                    const offsetY = (dy / dist) * (maxDist - dist) / 10;
+                    snowflake.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+                } else {
+                    snowflake.style.transform = '';
+                }
+            });
+        });
+
+        document.getElementById('typewriterButton').addEventListener('click', function() {
+            document.body.style.opacity = 0; // Start fade-out animation
+            setTimeout(() => {
+                window.location.href = 'second-page.html'; // Redirect to the second page after the fade-out
+            }, 1000); // Duration should match the CSS transition duration
+        });
+    </script>
+</body>
+</html>
